@@ -1,6 +1,7 @@
 package com.example.prod_ready_features.controllers;
 
 import com.example.prod_ready_features.dto.PostDto;
+import com.example.prod_ready_features.repositories.PostRepository;
 import com.example.prod_ready_features.services.PostService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final PostRepository postRepository;
 
     @GetMapping
     public List<PostDto> getAllPosts(){
@@ -28,5 +30,10 @@ public class PostController {
     @PostMapping
     public PostDto CreateNewPost(@RequestBody PostDto inputPost){
         return postService.createNewPost(inputPost);
+    }
+
+    @PutMapping("{postId}")
+    public PostDto updatePost(@RequestBody PostDto inputPost, @PathVariable Long postId){
+        return postService.updatePost(inputPost, postId);
     }
 }
